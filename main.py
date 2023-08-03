@@ -52,9 +52,25 @@ class Building():
             print(f"There are no more places in the {self.name} \n")    
             
     def show_residents(self):
-        print(f"Residents in {self.name}: {self.residents}")
-        
+        print(f"Residents in {self.name}:")
+        for resident in self.residents:
+            print(resident.name)
+            
+class Toy_workshop(Building):
+    gifts = []
     
+    def __init__(self, name, district, max_residents):
+        super().__init__(name, district, max_residents)
+            
+    def add_gift(self, gift):
+        self.gifts.append(gift)
+        
+    def show_gifts(self):
+        print(f"Gifts in {self.name}:")
+        for gift in self.gifts:
+            print(gift.name)
+        
+
         
 class Residents():
     def __init__(self, name, age):
@@ -67,15 +83,24 @@ class SantaClauss(Residents):
     def __init__(self, name, age):
         super().__init__(name, age)
         
+    
+    def delete_from_village(self, who, where):
+        if who in where.residents:
+            where.residents.remove(who)
+        else:
+            print(f"Taka osoba nie zamieszkuje w {where}")
             
-    #moze zmieniac wszystkow mieście i przenosić osoby międzydomami
         
 class Elf(Residents):
     def __init__(self, name, age):
         super().__init__(name, age)
-
-class Items():
-    pass
+        
+    
+         
+class Gift():
+    def __init__(self, name, weight):
+        self.name = name
+        self.weight = weight
 
 #Tworzenie miasta
 Village = Village("Novigrad")
@@ -83,7 +108,7 @@ Village = Village("Novigrad")
 #Tworzenie budynków
 Dom_swietego_mikolaja = Building("Dom Świętego Mikołaja", "Dzielnica Świątecznych Tradycji", 1)
 
-Warsztat_zabawek = Building("Warsztat Zabawek","Dzielnica Elfów", 10)
+Warsztat_zabawek = Toy_workshop("Warsztat Zabawek","Dzielnica Elfów", 10)
 Swiatynia_elfa = Building("Świątynia Elfa", "Dzielnica Elfów", 2)
 Dom_elfa = Building("Dom elfa", "Dzielnica Elfów", 2)
 
@@ -99,17 +124,36 @@ Coconi = Elf("Coconi", 21)
 Kamil = Elf("Kamil", 40)
 Polo = Elf("Polo", 45)
 
+
 #Przypisywanie osób do budynków
-
-
 Warsztat_zabawek.add_residents(Maniek)
 Warsztat_zabawek.add_residents(Mirek)
 Swiatynia_elfa.add_residents(Coconi)
 Swiatynia_elfa.add_residents(Kamil)
 Dom_elfa.add_residents(Polo)
 
+#Uswanie osób z budynków
+Warsztat_zabawek.show_residents()
+Swiety_mikolaj.delete_from_village(Mirek, Warsztat_zabawek)
+Warsztat_zabawek.show_residents()
+
 #Informacje o wiosce
 Village.get_info()
+
+#Tworzenie prezentów
+Samochod = Gift("Samochód", 2)
+Klocki = Gift("Klocki", 3)
+
+
+#Przechowanie prezentu w warsztacie zabawek
+Warsztat_zabawek.add_gift(Samochod)
+Warsztat_zabawek.show_gifts()
+
+
+
+
+
+
 
 
 
