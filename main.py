@@ -95,6 +95,9 @@ class Elf(Residents):
     def __init__(self, name, age):
         super().__init__(name, age)
         
+    def make_gift(self, name, weight):
+        name = Gift(name, weight)
+        
     
          
 class Gift():
@@ -148,6 +151,11 @@ Klocki = Gift("Klocki", 3)
 #Przechowanie prezentu w warsztacie zabawek
 Warsztat_zabawek.add_gift(Samochod)
 Warsztat_zabawek.show_gifts()
+
+#Tworzenie prezentów przez elfy
+Mirek.make_gift("Pluszak", 0.5)
+
+
 
 
 
